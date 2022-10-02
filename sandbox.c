@@ -27,6 +27,15 @@ void add_syscall_name(const char *syscall_name, scmp_filter_ctx ctx,
     add_syscall_nr(syscall_nr, ctx, action);
 }
 
+#define UNSET_ENV(name)                                               \
+    do {                                                              \
+        if (unsetenv(name)) {                                         \
+            LOG_ERR("Failed to unset environment variable %s", name); \
+            seccomp_release(ctx);                                     \
+            exit(ERR_UNSETENV);                                       \
+        }                                                             \
+    } while (0)
+
 void setup_seccomp(void) {
     LOG_INFO("Setting seccomp rules...");
 
@@ -51,21 +60,10 @@ void setup_seccomp(void) {
         exit(ERR_SECCOMP_INIT);
     }
 
-    setup_rule(template, ctx);
+    if (template) setup_rule(template, ctx);
 
-#define UNSETENV(name)                                                \
-    do {                                                              \
-        if (unsetenv(name)) {                                         \
-            LOG_ERR("Failed to unset environment variable %s", name); \
-            seccomp_release(ctx);                                     \
-            exit(ERR_UNSETENV);                                       \
-        }                                                             \
-    } while (0)
-
-    UNSETENV(SANDBOX_TEMPLATE);
-    UNSETENV(SANDBOX_ACTION);
-
-#undef UNSETENV
+    UNSET_ENV(SANDBOX_TEMPLATE);
+    UNSET_ENV(SANDBOX_ACTION);
 
     if (seccomp_load(ctx)) {
         LOG_ERR("Failed to load seccomp context");

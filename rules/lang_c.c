@@ -5,8 +5,11 @@
 #include <seccomp.h>
 
 void setup_lang_c(scmp_filter_ctx ctx) {
-    int white[]   = {SCMP_SYS(read),  SCMP_SYS(write),      SCMP_SYS(getpid),
-                     SCMP_SYS(futex), SCMP_SYS(exit_group), SCMP_SYS(newfstatat)};
+    int white[] = {
+        SCMP_SYS(read),  SCMP_SYS(write),      SCMP_SYS(lseek),
+        SCMP_SYS(mmap),  SCMP_SYS(munmap),     SCMP_SYS(getpid),
+        SCMP_SYS(futex), SCMP_SYS(newfstatat), SCMP_SYS(exit_group),
+    };
     int white_len = sizeof(white) / sizeof(white[0]);
 
     for (int i = 0; i < white_len; i++) {
