@@ -3,6 +3,9 @@ project(woj_sandbox C)
 
 set(CMAKE_C_STANDARD 23)
 
+# Handle __FILE__ in logging
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fmacro-prefix-map=${CMAKE_SOURCE_DIR}=.")
+
 # Source files
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/*.c ${PROJECT_SOURCE_DIR}/rules/*.c ${PROJECT_SOURCE_DIR}/utils/*.c)
 list(FILTER SRC_FILES EXCLUDE REGEX ".*test\\.c$")
