@@ -10,11 +10,11 @@
 #define COLOR_GREEN        "\x1B[1;32m"
 #define COLOR_STDOUT_RESET "\x1B[0m"
 
-#define _LOG(color, level, fmt, ...)                                          \
-    do {                                                                      \
-        fprintf(stderr,                                                       \
-                color "[" level "](%d)(%s:%d): " fmt COLOR_STDOUT_RESET "\n", \
-                getpid(), __FILE__, __LINE__, ##__VA_ARGS__);                 \
+#define _LOG(color, level, fmt, ...)                                         \
+    do {                                                                     \
+        fprintf(stderr,                                                      \
+                color "[" level "]\t(%s:%d):\t" fmt COLOR_STDOUT_RESET "\n", \
+                __FILE__, __LINE__, ##__VA_ARGS__);                          \
     } while (0)
 
 #define LOG_INFO(fmt, ...) _LOG(COLOR_GREEN, "info", fmt, ##__VA_ARGS__)
