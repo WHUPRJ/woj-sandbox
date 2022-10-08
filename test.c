@@ -13,7 +13,8 @@ int main() {
     if (pid == -1) {
         perror("fork failed");
     } else if (pid == 0) {
-        LOG_INFO("Child process");
+        LOG_WARN("Child process");
+        LOG_WARN("Exiting...");
         exit(0);
     } else {
         LOG_INFO("Parent process");
@@ -27,5 +28,14 @@ int main() {
         ;
 
     LOG_INFO("Exiting...");
+
+    // destroy stdin, stdout, stderr
+    close(0);
+    close(1);
+    close(2);
+    stdin  = NULL;
+    stdout = NULL;
+    stderr = NULL;
+
     return 0;
 }

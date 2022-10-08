@@ -1,5 +1,6 @@
 ---
 BasedOnStyle: LLVM
+AlignArrayOfStructures: Left
 AlignConsecutiveMacros: AcrossEmptyLinesAndComments
 AlignConsecutiveAssignments: Consecutive
 AlignConsecutiveBitFields: AcrossEmptyLinesAndComments
@@ -8,7 +9,8 @@ AlignEscapedNewlines: Left
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: true
 AllowShortLoopsOnASingleLine: true
-ColumnLimit: 80
+ColumnLimit: 120
+IndentCaseLabels: true
 IndentWidth: 4
 UseTab: Never
 SeparateDefinitionBlocks: Leave

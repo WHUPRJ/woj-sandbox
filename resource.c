@@ -43,14 +43,13 @@ void setup_rlimit(void) {
     }
 
     if (time_limit_str) {
-        // add 2 seconds to avoid time limit exceeded
         long limit = strtol(time_limit_str, NULL, 10);
-        time_limit = limit ? (limit / 1000 + 2) : 0;
+        time_limit = limit ? (limit + 1000) / 1000 : 0;
     }
 
     SET_LIMIT(RLIMIT_AS, mem_limit, "memory", "bytes");
     SET_LIMIT(RLIMIT_NPROC, nproc_limit, "nproc", "processes"); // per user
-    SET_LIMIT(RLIMIT_CPU, time_limit, "time", "seconds"); // except blocked time
+    SET_LIMIT(RLIMIT_CPU, time_limit, "time", "seconds");       // except blocked time
 
     UNSET_ENV(LIMIT_MEMORY);
     UNSET_ENV(LIMIT_NPROC);
