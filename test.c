@@ -1,5 +1,6 @@
 #include "utils/log.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 int main() {
     LOG_INFO("Testing Memory Limit");

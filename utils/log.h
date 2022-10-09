@@ -2,7 +2,6 @@
 #define WOJ_SANDBOX_LOG_H
 
 #include <stdio.h>
-#include <unistd.h>
 
 // Log
 #define COLOR_RED          "\x1B[1;31m"

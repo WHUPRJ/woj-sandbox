@@ -5,14 +5,6 @@
 #include <stdlib.h>
 #include <sys/resource.h>
 
-#define UNSET_ENV(name)                                               \
-    do {                                                              \
-        if (unsetenv(name)) {                                         \
-            LOG_ERR("Failed to unset environment variable %s", name); \
-            exit(ERR_UNSETENV);                                       \
-        }                                                             \
-    } while (0)
-
 #define SET_LIMIT(resource, limit, name, unit)                         \
     do {                                                               \
         if (limit) {                                                   \
@@ -50,8 +42,4 @@ void setup_rlimit(void) {
     SET_LIMIT(RLIMIT_AS, mem_limit, "memory", "bytes");
     SET_LIMIT(RLIMIT_NPROC, nproc_limit, "nproc", "processes"); // per user
     SET_LIMIT(RLIMIT_CPU, time_limit, "time", "seconds");       // except blocked time
-
-    UNSET_ENV(LIMIT_MEMORY);
-    UNSET_ENV(LIMIT_NPROC);
-    UNSET_ENV(LIMIT_TIME);
 }
