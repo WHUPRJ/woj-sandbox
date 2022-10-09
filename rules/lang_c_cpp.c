@@ -4,7 +4,7 @@
 
 #include <seccomp.h>
 
-void setup_lang_c(scmp_filter_ctx ctx) {
+void setup_lang_c_cpp(scmp_filter_ctx ctx) {
     int white[] = {
         SCMP_SYS(read),            // 0
         SCMP_SYS(write),           // 1
@@ -29,8 +29,16 @@ void setup_lang_c(scmp_filter_ctx ctx) {
 }
 
 struct rule lang_c_rule = {
-    .name  = "lang_c",
-    .setup = setup_lang_c,
+    .name  = "c",
+    .setup = setup_lang_c_cpp,
 };
 
-void register_lang_c(void) { register_rule(&lang_c_rule); }
+struct rule lang_cpp_rule = {
+    .name  = "cpp",
+    .setup = setup_lang_c_cpp,
+};
+
+void register_lang_c_cpp(void) {
+    register_rule(&lang_c_rule);
+    register_rule(&lang_cpp_rule);
+}

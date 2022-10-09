@@ -16,7 +16,7 @@ static __attribute__((constructor)) void inject(void) {
 
     LOG_INFO("Setting up sandbox for %s(%d)", comm, getpid());
 
-    register_lang_c();
+    register_lang_c_cpp();
     setup_rlimit();
     setup_seccomp();
 }
