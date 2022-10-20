@@ -4,10 +4,16 @@
 
 int main() {
     LOG_INFO("Testing Memory Limit");
-    void *p = malloc(sizeof(int) * 1024 * 1024 * 10);
-    if (!p) {
-        LOG_ERR("malloc failed");
-    }
+
+    void *p;
+    int   counter = 0;
+    do {
+        p = malloc(1);
+        if (!p) {
+            LOG_ERR("malloc failed, cnt=%d", counter);
+        }
+        counter++;
+    } while (p);
 
     LOG_INFO("Testing NPROC Limit");
     pid_t pid = fork();
